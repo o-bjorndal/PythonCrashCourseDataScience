@@ -1,0 +1,276 @@
+\documentclass[12pt]{beamer}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{pythontex}
+
+\begin{document}
+
+%\begin{frame}[fragile]
+%\py{2+2}
+%\begin{pygments}{py}
+%a=1
+%\end{pygments}
+%\end{frame}
+
+\title{Crash Course in Python}
+\author{Øystein Bjørndal}
+\begin{frame}[fragile]
+\maketitle
+\end{frame}
+
+\begin{frame}[fragile]
+\tableofcontents
+\end{frame}
+
+\section{Python 2 vs 3}
+\begin{frame}[fragile]
+\frametitle{Python 2 vs 3}
+\begin{columns}[T]
+	\begin{column}{0.48\textwidth}
+Python 2 \\
+\vspace{1cm}
+\pygment{py}{print "hello world"}\\
+\vspace{1cm}
+\pygment{py}{3/2 == 1} \\
+\vspace{1cm}
+\begin{small}
+\begin{pygments}{py}
+>>> map(str.upper, ['foo', 'baz'])
+['FOO', 'BAZ']
+\end{pygments}
+\end{small}
+	\end{column}
+	\begin{column}{0.48\textwidth}
+Python 3 \\
+\vspace{1cm}
+\pygment{py}{print("hello world")}\\
+\vspace{1cm}
+\pygment{py}{3/2 == 1.5} \\
+\vspace{1cm}
+Lazy evaluation: \\
+\begin{small}
+\begin{pygments}{py}
+>>> map(str.upper, ['foo', 'baz'])
+<map at 0x2a7c10647f0>
+\end{pygments}
+\end{small}
+	\end{column}
+\end{columns}
+
+\begin{center}
+USE PYTHON 3!
+\end{center}
+\end{frame}
+
+\section{Hello world}
+\begin{frame}[fragile]
+\frametitle{Hello world, complete how-to}
+\begin{enumerate}
+\item Download and install python
+\url{https://www.anaconda.com/download/} \\
+Anaconda contains python and a bunch of useful packages. \\
+At TI, consider installing from \url{http://software.itg.ti.com/} and fixing proxy: \url{https://infolink.sc.ti.com/business_rooms/characterization_corner/f/2782/t/80190}
+(first hit when searcing for "proxy" at \url{myinfolink.ti.com/}
+\item Add python to Path, either during the install or manually in Windows "Environment variables for your account"
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Hello world, complete how-to}
+\begin{enumerate}
+\setcounter{enumi}{2}
+\item Write a file "hello-world.py" with
+\begin{pygments}{py}
+print("hello world")
+\end{pygments}
+\item \begin{itemize}
+\item  Either use Spyder (similar to the Matlab interface with a interactive session and editor)
+\item use Command prompt, type "python hello-world.py" (assuming python is on your Path
+and you "cd" to the correct folder).
+\end{itemize}
+\item "hello world" !!
+\end{enumerate}
+\end{frame}
+
+\section{Some python basics}
+\begin{frame}[fragile]
+\frametitle{Some python basics}
+Demo:\\ \begin{small}\url{https://github.com/ehmatthes/pcc/releases/download/v1.0.0/beginners_python_cheat_sheet_pcc_all.pdf}\end{small}
+\end{frame}
+
+\section{Data science libraries}
+\begin{frame}[fragile]
+\frametitle{Data science libraries}
+Some great libraries:
+\begin{itemize}
+\item Matplotlib - similar plotting interface to Matlab, just better
+\item Numpy - similar optimized array/matrix operations as Matlab
+\item Pandas - Uses the above 2 libraries and much more, useful for data analysis, file reading/writing
+\end{itemize}
+\end{frame}
+
+\subsection{Matplotlib}
+\begin{frame}[fragile]
+\frametitle{Data science libraries - Matplotlib}
+\begin{pyblock}
+import pylab as plt
+# Alternative: import pylab
+# Please don't: from pylab import *
+
+x = [1, 2, 3]
+y = [2, 5, 10]
+
+plt.plot(x, y, linestyle='--', marker='*', 
+	label='this is a line')
+plt.legend(loc='best')
+\end{pyblock}
+\begin{pycode}
+filename = 'fig1.pdf'
+plt.savefig(filename)
+plt.close(plt.gcf())
+fig = r'\includegraphics[width=\textwidth]{%s}' % filename
+\end{pycode}
+\end{frame}
+
+\begin{frame}[fragile]
+\py{fig}
+%\includegraphics[width=\textwidth]{fig1.pdf}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{matplotlib documentation}
+\url{https://matplotlib.org/api/pyplot_summary.html}
+\end{frame}
+
+\subsection{Numpy}
+\begin{frame}[fragile]
+\frametitle{Data science libraries - Numpy}
+In the previous example, \pyv{x} and \pyv{y}, where "native" python lists, these do not work as expected from a Matlab viewpoint:
+\begin{pyconsole}
+x = [1, 2, 3]
+y = [2, 5, 10]
+x + y
+x*5
+# workaround
+for ix in range(len(x)):
+  x[ix] *= 5
+
+x
+\end{pyconsole}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Numpy to the rescue}
+\begin{pyconsole}
+import numpy as np
+x = np.array([1, 2, 3])
+y = np.array([2, 5, 10])
+x + y
+x*5
+# Still works the same:
+for ix in range(len(x)):
+  x[ix] *= 5
+
+x
+\end{pyconsole}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Numpy documentation}
+cheat sheet \\
+\url{https://www.datacamp.com/community/blog/python-numpy-cheat-sheet} \\
+\vspace{0.25cm}
+
+Numpy for Matlab users \\
+\url{https://docs.scipy.org/doc/numpy-1.14.0/user/numpy-for-matlab-users.html} \\
+\vspace{0.25cm}
+
+Documentation (or just google "numpy x")\\
+\url{https://docs.scipy.org/doc/numpy-1.14.0/reference/index.html}
+\end{frame}
+
+\subsection{Pandas}
+\begin{frame}[fragile]
+\frametitle{Pandas documentation}
+Short intro to Pandas\\
+\url{https://pandas.pydata.org/pandas-docs/stable/10min.html} \\
+\vspace{0.25cm}
+
+API \\
+\url{https://pandas.pydata.org/pandas-docs/stable/api.html} \\
+\vspace{0.25cm}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Pandas}
+\begin{pyblock}
+import pandas as pd
+s = pd.Series([2, 5, 10], index=(1000,2000,3000))
+s[1000] # 2
+s.plot(grid=True)
+\end{pyblock}
+\begin{pycode}
+filename = 'fig2.pdf'
+plt.savefig(filename)
+fig2 = r'\includegraphics[width=\textwidth]{%s}' % filename
+\end{pycode}
+\end{frame}
+
+\begin{frame}[fragile]
+\py{fig2}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Pandas indexing series}
+\begin{pyconsole}
+import pandas as pd
+s = pd.Series([2, 5, 10], index=(1000,2000,3000))
+s[1000]
+s.iloc[0]
+s[3000]
+s.iloc[-1]
+\end{pyconsole}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Pandas indexing series, using strings}
+\begin{pyconsole}
+import pandas as pd
+s = pd.Series([2, 5, 10], index=('Experiment 1',
+					'Debug',
+					'Debug-Debug'))
+s['Experiment 1']
+s.iloc[0]
+s['Debug-Debug']
+s.iloc[-1]
+\end{pyconsole}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Pandas as spotfire replacement Demo}
+Internal TI link:
+\url{https://oslosvn.norway.design.ti.com/svn/lab/Python/PythonCrashCourse/pandas_as_spotfire_demo.py}
+
+\end{frame}
+
+\section{Style guide}
+\begin{frame}[fragile]
+\frametitle{PEP 8}
+Write better code
+\url{https://www.python.org/dev/peps/pep-0008/?}\\
+Not intended for beginner python users, but shows some interesting syntax and use cases and
+describes best-practices.
+
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{footnotesize}
+\begin{pyconsole}
+import this
+\end{pyconsole}
+\end{footnotesize}
+\end{frame}
+\end{document}

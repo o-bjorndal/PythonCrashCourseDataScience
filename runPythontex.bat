@@ -1,0 +1,1 @@
+python "...\AppData\Local\Programs\MiKTeX 2.9\scripts\pythontex\pythontex.py" CrashCoursePython
