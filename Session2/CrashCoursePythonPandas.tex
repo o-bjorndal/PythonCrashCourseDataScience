@@ -1,0 +1,271 @@
+\PassOptionsToPackage{obeyspaces}{url}
+
+\documentclass[12pt]{beamer}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+%\usepackage[obeyspaces]{url}
+
+\usepackage{hyperref}
+
+\usepackage{pythontex}
+
+\begin{document}
+
+%\begin{frame}[fragile]
+%\py{2+2}
+%\begin{pygments}{py}
+%a=1
+%\end{pygments}
+%\end{frame}
+
+\title{Crash Course in Python}
+\author{Øystein Bjørndal}
+\begin{frame}[fragile]
+\maketitle
+\end{frame}
+
+\begin{frame}[fragile]
+\tableofcontents
+\end{frame}
+
+\section{Hello world}
+\begin{frame}[fragile]
+\frametitle{Hello world, complete how-to}
+\begin{enumerate}
+\item Download and install python
+\url{https://www.anaconda.com/download/} \\
+Anaconda contains python and a bunch of useful packages. \\
+At TI, consider installing from \url{http://software.itg.ti.com/} and fixing proxy: \url{https://infolink.sc.ti.com/business_rooms/characterization_corner/f/2782/t/80190}
+(first hit when searcing for "proxy" at \url{myinfolink.ti.com/}
+\item Add python to Path, either during the install or manually in Windows "Environment variables for your account"
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Hello world, complete how-to}
+\begin{enumerate}
+\setcounter{enumi}{2}
+\item Write a file "hello-world.py" with
+\begin{pygments}{py}
+print("hello world")
+\end{pygments}
+\item \begin{itemize}
+\item  Either use Spyder (similar to the Matlab interface with a interactive session and editor)
+\item use Command prompt, type "python hello-world.py" (assuming python is on your Path
+and you "cd" to the correct folder).
+\end{itemize}
+\item "hello world" !!
+\end{enumerate}
+\end{frame}
+
+\section{Some python basics}
+\begin{frame}[fragile]
+\frametitle{Some python basics}
+Demo:\\ \begin{small}\url{https://github.com/ehmatthes/pcc/releases/download/v1.0.0/beginners_python_cheat_sheet_pcc_all.pdf}\end{small}
+\end{frame}
+
+\section{Data science libraries}
+\begin{frame}[fragile]
+\frametitle{Data science libraries}
+Some great libraries:
+\begin{itemize}
+\item Matplotlib - similar plotting interface to Matlab, just better
+\item Numpy - similar optimized array/matrix operations as Matlab
+\item Pandas - Uses the above 2 libraries and much more, useful for data analysis, file reading/writing
+\end{itemize}
+\end{frame}
+
+
+\subsection{Pandas}
+\begin{frame}[fragile]
+\frametitle{Pandas documentation}
+Short intro to Pandas\\
+\url{https://pandas.pydata.org/pandas-docs/stable/10min.html} \\
+\vspace{0.25cm}
+
+API \\
+\url{https://pandas.pydata.org/pandas-docs/stable/api.html} \\
+\vspace{0.25cm}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Pandas}
+\begin{pyblock}
+import pandas as pd
+df = pd.DataFrame([[2, 5, 10], [3, 6, 11]], 
+			columns=('col1', 'col2', 'col3'))
+df['col1'] #  [2, 3]
+df.plot('col1', 'col2', grid=True)
+\end{pyblock}
+\begin{pycode}
+import pylab as plt
+filename = 'fig2.pdf'
+plt.savefig(filename)
+fig2 = r'\includegraphics[width=\textwidth]{%s}' % filename
+\end{pycode}
+\end{frame}
+
+\begin{frame}[fragile]
+\py{fig2}
+\end{frame}
+
+\subsubsection{Plotting with Pylab}
+\begin{frame}[fragile]
+\frametitle{Plotting with Pylab}
+\begin{pyblock}
+import pylab as plt
+import pandas as pd
+
+df = pd.DataFrame([[2, 5, 10], [3, 6, 11]], 
+			columns=('col1', 'col2', 'col3'))
+df['col1'] #  [2, 3]
+
+plt.figure(2)
+plt.plot(df['col1'].values, df['col2'].values,
+	marker='.')
+plt.grid(True)
+\end{pyblock}
+\begin{pycode}
+
+filename = 'fig22.pdf'
+plt.savefig(filename)
+fig22 = r'\includegraphics[width=\textwidth]{%s}' % filename
+\end{pycode}
+\end{frame}
+
+\begin{frame}[fragile]
+\py{fig22}
+\end{frame}
+
+\subsubsection{Pandas indexing}
+\begin{frame}[fragile]
+\frametitle{Pandas indexing}
+\begin{pyconsole}
+import pandas as pd
+
+df = pd.DataFrame([[2, 5, 10], [3, 6, 11]], 
+			columns=('col1', 'col2', 'col3'))
+df['col1']
+df['col1'].iloc[0]
+df['col1'].iloc[1]
+df['col1'].iloc[-1] # last element
+\end{pyconsole}
+\end{frame}
+
+\subsubsection{Pandas indexing slize}
+\begin{frame}[fragile]
+\frametitle{Pandas indexing slize}
+\begin{pyconsole}
+import pandas as pd
+
+df = pd.DataFrame([[2, 5, 10], [3, 6, 11]], 
+			columns=('col1', 'col2', 'col3'))
+df
+# start at index 0, end at index 2 (not inclusive)
+df['col1'].iloc[0:2] 
+\end{pyconsole}
+\end{frame}
+
+\subsubsection{Pandas return submatch}
+\begin{frame}[fragile]
+\frametitle{Pandas return submatch}
+\begin{pyconsole}
+df = pd.DataFrame([[2, 5, 10], [3, 6, 11], [4, 5, 12]], 
+			columns=('col1', 'col2', 'col3'))
+df
+df['col2'] == 5
+df[df['col2'] == 5] 
+\end{pyconsole}
+\end{frame}
+
+\subsubsection{Pandas reading and writing to excel}
+\begin{frame}[fragile]
+\frametitle{Pandas reading and writing to excel}
+\begin{pyconsole}
+root = r'R:\CC2652R\PG2.1_Q1\Debug\OB_OPT2\TX_BLE_Quality\CC2652REM-7ID-Q1\Test Bench 14'
+root_tmp = r'c:\tmp'
+filename = 'TX_BLE_quality_frequencySweep_TC029_TxPower_003F_DCDC_ON_spotfire.xlsx'
+full_path_in = os.path.join(root, filename)
+full_path_out = os.path.join(root_tmp, filename)
+
+ # read
+df = pd.read_excel(full_path_in)
+# write
+df.to_excel(full_path_out, index=False)
+# see 
+# svn\lab\Python\py_excel_utilities\pandas_util.py
+# for more formats
+\end{pyconsole}
+\end{frame}
+
+\begin{frame}[fragile]
+\subsubsection{Getting filenames}
+\frametitle{Getting filenames}
+\begin{pyconsole}
+# single filename
+full_path = r'c:\tmp\myfile.xlsx'
+# OR
+root = r'c:\tmp'
+filename = 'myfile.xlsx'
+full_path = os.path.join(root, filename)
+\end{pyconsole}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Getting files continued}
+\begin{pyconsole}
+# multiple filenames, wildcard
+from glob import glob
+for full_path in glob(r'c:\tmp\*.xlsx'):
+  print(full_path)
+  break;# break loop
+  
+# multiple filenames, all subfolders
+for root, dirs, files in os.walk(r'c:\tmp'):
+  for filename in files:
+    if filename.endswith('.xlsx'):
+      full_path = os.path.join(root, filename)
+
+\end{pyconsole}
+\end{frame}
+
+\subsubsection{DataFrame Grouping}
+\begin{frame}[fragile]
+\frametitle{DataFrame Grouping}
+\begin{pyconsole}
+df['EM name'].unique()
+for temperature, group in df.groupby('Temperature'):
+  for em_name, group in group.groupby('EM name'):
+    print(temperature, em_name)
+
+group['EM name'].unique()
+\end{pyconsole}
+\end{frame}
+
+\section{Demo}
+\begin{frame}[fragile]
+\frametitle{Demo}
+\url{https://dosfiler01.itg.ti.com/svn/lab/Python/PythonCrashCourse/cleanup_tof_results.py}
+\end{frame}
+
+\section{Style guide}
+\begin{frame}[fragile]
+\frametitle{PEP 8}
+Write better code
+\url{https://www.python.org/dev/peps/pep-0008/?}\\
+Not intended for beginner python users, but shows some interesting syntax and use cases and
+describes best-practices.
+
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{footnotesize}
+\begin{pyconsole}
+import this
+\end{pyconsole}
+\end{footnotesize}
+\end{frame}
+\end{document}
