@@ -1,7 +1,13 @@
+\PassOptionsToPackage{obeyspaces}{url}
+
 \documentclass[12pt]{beamer}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+%\usepackage[obeyspaces]{url}
+
+\usepackage{hyperref}
+
 \usepackage{pythontex}
 
 \begin{document}
@@ -250,10 +256,15 @@ s.iloc[-1]
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Pandas as spotfire replacement Demo}
-Internal TI link:
-\url{https://oslosvn.norway.design.ti.com/svn/lab/Python/PythonCrashCourse/pandas_as_spotfire_demo.py}
+\frametitle{Calling from LabView}
+\url{https://oslosvn.norway.design.ti.com/svn/lab/Kharon LabView 2016/trunk/Register files/Auto update register files/call_python.vi}
 
+\vspace{1cm}
+Example usage
+\begin{itemize}
+\item \url{https://oslosvn.norway.design.ti.com/svn/lab/Kharon LabView 2016/trunk/User Lib/Generic instrument methods/General/Log_Instr_excel.vi}
+\item \url{https://oslosvn.norway.design.ti.com/svn/lab/Kharon LabView 2016/trunk/User Lib/Utilities/Reporting/Report tool/Panels/MergeToSpotfire/concatenate_csv_MAIN.vi}
+\end{itemize}
 \end{frame}
 
 \section{Style guide}
